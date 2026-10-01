@@ -58,6 +58,29 @@ code contained in this repository.
 Signed releases must be produced through the project's automated build
 process from the public source repository.
 
+### Team roles
+
+Maintainer:
+- iwart-ship-it
+
+Committer:
+- iwart-ship-it
+
+Reviewer:
+- iwart-ship-it
+
+Approver:
+- iwart-ship-it
+
+### Privacy
+
+The Last Road Launcher connects to the official Last Road infrastructure
+only when requested by the user for actions such as checking, downloading,
+updating or repairing game files.
+
+The launcher does not intentionally collect or transmit personal information
+to third-party services as part of its update and repair functionality.
+
 The certificate must not be used to sign:
 
 - the Last Road game server;
@@ -69,3 +92,4 @@ The certificate must not be used to sign:
 Official releases are distributed through:
 
 https://last-road.com/
+
