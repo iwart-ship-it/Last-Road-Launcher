@@ -1,0 +1,33 @@
+﻿# .NET build
+**/bin/
+**/obj/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Compiled binaries
+*.exe
+*.dll
+*.pdb
+
+# Installer output
+Installer/Output/
+
+# Temporary files
+*.tmp
+*.log
+*.download
+
+# OS files
+Thumbs.db
+Desktop.ini
+
+# Secrets / certificates
+*.pfx
+*.p12
+*.pem
+*.key
+*.cer
+*.crt
