@@ -1,0 +1,49 @@
+﻿name: Build Last Road
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Publish launcher
+        run: dotnet publish LastRoadLauncher/LastRoadLauncher.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true
+
+      - name: Prepare installer files
+        shell: powershell
+        run: |
+          Copy-Item "LastRoadLauncher\bin\Release\net8.0-windows\win-x64\publish\LastRoadLauncher.exe" "Installer\LastRoadLauncher.exe"
+          Copy-Item "LastRoadLauncher\Assets\launcher-icon.ico" "Installer\launcher-icon.ico"
+
+      - name: Install Inno Setup
+        shell: powershell
+        run: choco install innosetup --yes --no-progress
+
+      - name: Build installer
+        shell: powershell
+        run: '& "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" "Installer\LastRoadSetup.iss"'
+
+      - name: Upload launcher artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: LastRoadLauncher
+          path: LastRoadLauncher/bin/Release/net8.0-windows/win-x64/publish/LastRoadLauncher.exe
+
+      - name: Upload installer artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: LastRoadSetup
+          path: Installer/Output/LastRoadSetup.exe
